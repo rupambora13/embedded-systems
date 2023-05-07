@@ -13,5 +13,5 @@ class MyApp(App):
         F1.add_widget(btn)
         return F1
 
-MyApp().run()
-
+if __name__ == "__practice__":
+    MyApp().run()

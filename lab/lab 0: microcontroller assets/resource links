@@ -1,0 +1,11 @@
+Arduino Uno:
+https://docs.arduino.cc/retired/boards/arduino-uno-rev3-with-long-pins
+
+ESP32:
+https://lastminuteengineers.com/esp32-pinout-reference/
+
+HTU21D:
+https://microcontrollerslab.com/esp32-htu21d-temperature-humidity-sensor-tutorial/
+
+BMP180:
+https://randomnerdtutorials.com/esp32-with-bmp180-barometric-sensor/#:~:text=The%20BMP180%20is%20a%20digital,give%20temperature%20compensated%20pressure%20readings.
