@@ -1,9 +1,17 @@
-void setup() {
-  // put your setup code here, to run once:
+#define relay A0
+#define interval 1000
 
+void setup() {
+  pinMode(relay, OUTPUT);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+   digitalWrite(relay, HIGH);
 
+   delay(interval);
+
+   digitalWrite(relay, LOW);
+
+   delay(interval);
 }
