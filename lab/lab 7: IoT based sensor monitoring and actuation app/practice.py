@@ -1,17 +1,32 @@
-import kivy
-from kivy.app import App
-from kivy.uix.button import Button
-from kivy.uix.floatlayout import FloatLayout
 from kivy.config import Config
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.graphics import Color, Line
 
-Config.set('graphics','resizable', True)
 
-class MyApp(App):
+class IoT(App):
     def build(self):
-        F1 = FloatLayout()
-        btn = Button(text = 'Hello World', size_hint = (.3,.2), pos = (300,200))
-        F1.add_widget(btn)
-        return F1
+        layout = BoxLayout(orientation='vertical')
 
-if __name__ == "__practice__":
-    MyApp().run()
+        # Add a label widget
+        label = Label(text='Hello Kivy!',
+                      font_size='50sp',
+                      size_hint=(1, 1))
+        layout.add_widget(label)
+
+        # Add a border to the layout
+        with layout.canvas:
+            Color(1, 0, 0, 1)  # Set border color (red)
+            Line(rectangle=(0, 0, 360, 640),
+                 width=2)
+
+        return layout
+
+
+if __name__ == '__main__':
+    Config.set('graphics', 'width', '360')
+    Config.set('graphics', 'height', '640')
+    Config.set('graphics', 'orientation', 'portrait')
+
+    IoT().run()

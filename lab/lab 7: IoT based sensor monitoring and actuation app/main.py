@@ -1,32 +1,32 @@
+from kivy.config import Config
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.network.urlrequest import UrlRequest
-from kivy.properties import StringProperty
+from kivy.uix.label import Label
+from kivy.graphics import Color, Line
 
-class ESP32ControlLayout(BoxLayout):
-    esp32_data = StringProperty()
-    
-    def __init__(self, **kwargs):
-        super(ESP32ControlLayout, self).__init__(**kwargs)
-        self.update_esp32_data()
-    
-    def update_esp32_data(self, *args):
-        url = "http://<esp32_ip_address>/data"
-        UrlRequest(url, on_success=self.handle_response, on_error=self.handle_error)
-    
-    def handle_response(self, request, response):
-        self.esp32_data = response
-    
-    def handle_error(self, request, error):
-        print("Error:", error)
-    
-    def send_control_signal(self, control_signal):
-        url = "http://<esp32_ip_address>/control?signal={}".format(control_signal)
-        UrlRequest(url, on_success=self.handle_response, on_error=self.handle_error)
 
-class ESP32ControlApp(App):
+class IoT(App):
     def build(self):
-        return ESP32ControlLayout()
+        layout = BoxLayout(orientation='vertical')
+
+        # Add a label widget
+        label = Label(text='Hello Kivy!',
+                      font_size='50sp',
+                      size_hint=(1, 1))
+        layout.add_widget(label)
+
+        # Add a border to the layout
+        with layout.canvas:
+            Color(1, 0, 0, 1)  # Set border color (red)
+            Line(rectangle=(0, 0, 360, 640),
+                 width=2)
+
+        return layout
+
 
 if __name__ == '__main__':
-    ESP32ControlApp().run()
+    Config.set('graphics', 'width', '360')
+    Config.set('graphics', 'height', '640')
+    Config.set('graphics', 'orientation', 'portrait')
+
+    IoT().run()
