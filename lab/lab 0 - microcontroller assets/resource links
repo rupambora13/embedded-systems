@@ -4,9 +4,16 @@ https://docs.arduino.cc/retired/boards/arduino-uno-rev3-with-long-pins
 ESP32:
 https://lastminuteengineers.com/esp32-pinout-reference/
 https://www.tutorialspoint.com/esp32_for_iot/installing_the_esp32_board_in_arduino_ide.htm
+https://www.youtube.com/watch?v=6zbEVAXVBjI&t=70s
 
 HTU21D:
 https://microcontrollerslab.com/esp32-htu21d-temperature-humidity-sensor-tutorial/
 
 BMP180:
 https://randomnerdtutorials.com/esp32-with-bmp180-barometric-sensor/#:~:text=The%20BMP180%20is%20a%20digital,give%20temperature%20compensated%20pressure%20readings.
+https://microcontrollerslab.com/esp32-bmp180-oled-tutorial/
+https://www.youtube.com/watch?v=PINy0lUNNNg
+
+HC-SR04:
+https://circuitdigest.com/microcontroller-projects/interfacing-hcsr04-ultrasonic-sensor-module-with-esp32
+https://www.youtube.com/watch?v=6bvkTyNRSjI
