@@ -19,13 +19,14 @@ class IoT(App):
         layout.add_widget(self.data_label)
         layout.add_widget(self.button_on)
         layout.add_widget(self.button_off)
-
-        self.button_on.bind(on_press=self.send_high)
-        self.button_off.bind(on_press=self.send_low)
-        
+       
         # Open socket connection to ESP32 server
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect(('192.168.43.114', 80))  # Replace 'ESP32_IP_ADDRESS' with the IP address of your ESP32
+        
+
+        self.button_on.bind(on_press=self.send_high)
+        self.button_off.bind(on_press=self.send_low)
         
         # Schedule the update function to run every second
         Clock.schedule_interval(self.update_data, 1)
