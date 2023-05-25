@@ -5,8 +5,6 @@
 #define WIFI_PASSWORD "12345678"
 #define WIFI_TIMEOUT_MS 20000
 
-int ledPin = 13;
-bool ledState = LOW;
 const int trigPin = 5;
 const int echoPin = 18;
 int duration, distance;
@@ -42,11 +40,8 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  server.begin
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, ledState);
 }
 
 void loop() {
@@ -66,17 +61,13 @@ void loop() {
     // Update the previous distance
     previousDistance = distance;
   }
-
   delay(100);
  WiFiClient client = server.available();
   if (client) {
     while (client.connected()) {
-      if (distance != previousDistance) {
       String data = String(distance); // Replace with your sensor data source
       client.println(data);
-      previousDistance = distance;
       delay(1000);
-      }
       
       String request = client.readStringUntil('\n');
       if (request == "HIGH") {
