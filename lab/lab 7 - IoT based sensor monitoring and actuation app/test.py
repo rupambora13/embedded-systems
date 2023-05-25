@@ -12,26 +12,27 @@ class IoT(App):
         # Create UI
         layout = BoxLayout(orientation='vertical')
 
-        self.data_label = Label(text='Waiting for data...')
-        self.button_on = Button(text='LED ON')
-        self.button_off = Button(text='LED OFF')
+        self.button_on = Button(text='LED ON',
+                      font_size='50sp',
+                      size_hint=(1, 1))
+        self.button_off = Button(text='LED OFF',
+                      font_size='50sp',
+                      size_hint=(1, 1))
 
-        layout.add_widget(self.data_label)
         layout.add_widget(self.button_on)
         layout.add_widget(self.button_off)
 
         self.button_on.bind(on_press=self.send_high)
         self.button_off.bind(on_press=self.send_low)
-        
+
         # Open socket connection to ESP32 server
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect(('192.168.43.114', 80))  # Replace 'ESP32_IP_ADDRESS' with the IP address of your ESP32
-        
+        self.sock.connect(('192.168.43.114', 80))
+
         # Schedule the update function to run every second
         Clock.schedule_interval(self.update_data, 1)
-        
+
         return layout
-    
     def update_data(self, dt):
         # Receive data from the ESP32 server
         data = self.sock.recv(1024).decode().strip()
@@ -46,12 +47,11 @@ class IoT(App):
     def send_low(self, instance):
         # Send "LOW" command to the ESP32 server
         self.sock.sendall(b"LOW\n")
-
+    
     def on_stop(self):
         # Close the socket connection when the app is closed
         self.sock.close()
     
-
 if __name__ == '__main__':
     Config.set('graphics', 'width', '360')
     Config.set('graphics', 'height', '640')
