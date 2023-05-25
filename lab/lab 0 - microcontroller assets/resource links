@@ -17,3 +17,12 @@ https://www.youtube.com/watch?v=PINy0lUNNNg
 HC-SR04:
 https://circuitdigest.com/microcontroller-projects/interfacing-hcsr04-ultrasonic-sensor-module-with-esp32
 https://www.youtube.com/watch?v=6bvkTyNRSjI
+
+Relay Module:
+https://randomnerdtutorials.com/esp32-relay-module-ac-web-server/
+
+I2C:
+https://randomnerdtutorials.com/esp32-i2c-communication-arduino-ide/#:~:text=To%20use%20the%20two%20I2C%20bus%20interfaces%20of%20the%20ESP32,to%20create%20two%20TwoWire%20instances.&text=Then%2C%20initialize%20I2C%20communication%20on,pins%20with%20a%20defined%20frequency.&text=Then%2C%20you%20can%20use%20the,with%20the%20I2C%20bus%20interfaces.
+
+Kivy Arduino:
+https://www.youtube.com/watch?v=Li1KaSgdNCA
