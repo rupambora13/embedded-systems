@@ -1,8 +1,12 @@
+from kivy.config import Config
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.graphics import Color, Line
 from kivy.clock import Clock
-from kivy.network.urlrequest import UrlRequest
+import socket
+
 
 ESP32_IP = "192.168.43.114"  # Replace with the ESP32's IP address
 
@@ -43,4 +47,5 @@ class IoTApp(App):
         self.data_label.text = "Distance: " + response + " cm"
 
 if __name__ == "__main__":
+    
     IoTApp().run()
