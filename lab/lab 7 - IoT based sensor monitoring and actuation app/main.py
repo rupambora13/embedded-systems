@@ -9,18 +9,17 @@ class IoT(App):
     def build(self):
         # Create UI
         layout = BoxLayout(orientation='vertical')
+
         self.data_label = Label(text='Waiting for data...')
         self.button_on = Button(text='LED ON')
         self.button_off = Button(text='LED OFF')
 
         layout.add_widget(self.data_label)
+        layout.add_widget(self.button_on)
+        layout.add_widget(self.button_off)
 
         self.button_on.bind(on_press=self.send_high)
         self.button_off.bind(on_press=self.send_low)
-
-        layout.add_widget(self.data_label)
-        layout.add_widget(self.button_on)
-        layout.add_widget(self.button_off)
         
         # Open socket connection to ESP32 server
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
