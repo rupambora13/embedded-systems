@@ -23,7 +23,7 @@ class IoT(App):
         
         # Open socket connection to ESP32 server
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect(('ESP32_IP_ADDRESS', 80))  # Replace 'ESP32_IP_ADDRESS' with the IP address of your ESP32
+        self.sock.connect((192.168.43.114, 80))  # Replace 'ESP32_IP_ADDRESS' with the IP address of your ESP32
         
         # Schedule the update function to run every second
         Clock.schedule_interval(self.update_data, 1)

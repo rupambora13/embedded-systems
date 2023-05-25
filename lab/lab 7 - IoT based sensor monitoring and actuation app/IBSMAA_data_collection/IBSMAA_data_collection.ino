@@ -10,6 +10,7 @@ bool ledState = LOW;
 const int trigPin = 5;
 const int echoPin = 18;
 int duration, distance;
+int previousDistance = 0;
 WiFiServer server(80);
 
 void connectToWiFi(){
@@ -57,19 +58,26 @@ void loop() {
  digitalWrite(trigPin, LOW);
  duration = pulseIn(echoPin, HIGH);
  distance = duration*0.034/2;
- Serial.print(distance);
- Serial.println(" cm");
- delay(100);
+ if (distance != previousDistance) {
+    // Data has changed, process the new distance value
+    Serial.print(distance);
+    Serial.println(" cm");
+    // Update the previous distance
+    previousDistance = distance;
+  }
+
+  delay(100);
  WiFiClient client = server.available();
   if (client) {
     while (client.connected()) {
+      if (distance != previousDistance) {
       String data = String(distance); // Replace with your sensor data source
-
       client.println(data);
+      previousDistance = distance;
       delay(1000);
-
+      }
+      
       String request = client.readStringUntil('\n');
-
       if (request == "HIGH") {
         ledState = HIGH;
       } else if (request == "LOW") {
