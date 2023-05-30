@@ -1,5 +1,7 @@
 #include <WiFi.h>
 #include <Wire.h>
+#include "SparkFunHTU21D.h"
+HTU21D htu;
 
 // Replace with your network credentials
 const char* ssid = "IoT Project";
@@ -22,6 +24,8 @@ const int output27 = 27;
 const int output13 = 13;
 const int trigPin = 5;
 const int echoPin = 18;
+float a = 74.7796;
+float b = 30.8351;
 int duration, distance;
 int previousDistance = 0;
 
@@ -38,11 +42,13 @@ void setup() {
   pinMode(output26, OUTPUT);
   pinMode(output27, OUTPUT);
   pinMode(output13, OUTPUT);
+  pinMode(1, OUTPUT);
+  pinMode(3, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   // Set outputs to LOW
-  digitalWrite(output26, LOW);
-  digitalWrite(output27, LOW);
+  analogWrite(output26, 255);
+  analogWrite(output27, 255);
   digitalWrite(output13, LOW);
 
   // Connect to Wi-Fi network with SSID and password
@@ -59,6 +65,7 @@ void setup() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
+  htu.begin();
 }
 
 void loop(){
@@ -78,6 +85,21 @@ void loop(){
     previousDistance = distance;
   }
   delay(100);
+  float humd = htu.readHumidity();
+  float temp = htu.readTemperature();
+  float y1;
+  float y2;
+  y1 = temp + a;
+  y2 = humd - b;
+  
+  Serial.print(" Temperature:");
+  Serial.print(y1);
+  Serial.println("C");
+  Serial.print(" Humidity:");
+  Serial.print(y2);
+  Serial.println ("%");
+  Serial.println();
+  delay(1000);
   
   WiFiClient client = server.available();   // Listen for incoming clients
 
@@ -107,19 +129,26 @@ void loop(){
             if (header.indexOf("GET /26/on") >= 0) {
               Serial.println("GPIO 26 on");
               output26State = "on";
-              digitalWrite(output26, HIGH);
+              analogWrite(output26, 0);
+              digitalWrite(1, HIGH);
             } else if (header.indexOf("GET /26/off") >= 0) {
               Serial.println("GPIO 26 off");
               output26State = "off";
-              digitalWrite(output26, LOW);
+              analogWrite(output26, 255);
+              digitalWrite(1, LOW);
+              
             } else if (header.indexOf("GET /27/on") >= 0) {
               Serial.println("GPIO 27 on");
               output27State = "on";
-              digitalWrite(output27, HIGH);
+              analogWrite(output27, 0);
+              
+              digitalWrite(3, HIGH);
             } else if (header.indexOf("GET /27/off") >= 0) {
               Serial.println("GPIO 27 off");
               output27State = "off";
-              digitalWrite(output27, LOW);
+              analogWrite(output27, 255);
+              
+              digitalWrite(3, LOW);
             } else if (header.indexOf("GET /13/on") >= 0) {
               Serial.println("GPIO 13 on");
               output13State = "on";
@@ -144,10 +173,18 @@ void loop(){
             // Web Page Heading
             client.println("<body><h1>ECE 2064 Lab</h1>");
 
-            // IR sensor distance
-            client.print("Distance = ");
+            //Sensor Data
+            client.print("Distance: ");
             client.print(distance);
             client.println(" cm");
+
+            client.print("Temperature: ");
+            client.print(y1);
+            client.println(" C\n");
+
+            client.print("Humidity: ");
+            client.print(y2);
+            client.println(" %\n");
             
              // Display current state, and ON/OFF buttons for GPIO 13  
             client.println("<p>GPIO 13 - State " + output13State + "</p>");
